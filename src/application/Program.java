@@ -1,43 +1,54 @@
 package application;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import entities.GameMatch;
+import entities.Player;
+import entities.Vaza;
 
 
 public class Program {
 
 	public static void main(String[] args) {
 		
-		Scanner sc = new Scanner(System.in);
-		GameMatch gameMatch;
-		List<String> players = new ArrayList<>();
+		Scanner sc = new Scanner(System.in);					
 		
 		System.out.print("How many players? ");
-		int n = sc.nextInt();
+		int HowMany = sc.nextInt();
 				
-		while(n < 3 || n > 6) {
+		while(HowMany < 3 || HowMany > 6) {
 			System.out.println("The game must have between 3 and 6 players.");
 			System.out.print("How many players? ");
-			n = sc.nextInt();
+			HowMany = sc.nextInt();
 		}
-			
+		
+		GameMatch gameMatch = new GameMatch(HowMany);	
 		sc.nextLine();
 		
-		for(int i = 1; i <= n; i++) {
+		for(int i = 1; i <= HowMany; i++) {
 			
 			System.out.print(i + "º player's name: ");
-			players.add(sc.nextLine());
+			String name = sc.nextLine();
+			
+			System.out.print("Bid: ");
+			int bid = sc.nextInt();
+			while(!gameMatch.validateBid(bid)) {
+				System.out.println("Invalid value! Bid must be possible.");
+				System.out.print("Bid: ");
+				bid = sc.nextInt();
+			}
+			
+			sc.nextLine();
+			Player p = new Player(name, new Vaza(bid));
+			gameMatch.setPlayer(p);
+			System.out.println();
 		}
 		
-		gameMatch = new GameMatch(players);
-		
-		List<String > gameplayers = gameMatch.getPlayers();
+		List<Player> gameplayers = gameMatch.getPlayers();
 		
 		System.out.println("Jogadores: ");
-		for(String pl : gameplayers) {
+		for(Player pl : gameplayers) {
 			System.out.println(pl);
 		}
 		

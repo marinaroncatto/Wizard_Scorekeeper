@@ -7,9 +7,8 @@ public class Player {
 	
 	private Vaza vaza;
 
-	public Player(String name, int points, Vaza vaza) {
-		this.name = name;
-		this.points = points;
+	public Player(String name, Vaza vaza) {
+		this.name = name;		
 		this.vaza = vaza;
 	}
 
@@ -35,7 +34,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return name + ", points=" + points + ", vaza=" + vaza;
+		return name + " - points: " + points + " | " + vaza;
 	}
 	
 	

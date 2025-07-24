@@ -4,12 +4,9 @@ public class Vaza {
 	
 	private int bid;
 	private int victories;
-	private int round;
-	
-	public Vaza(int bid, int victories, int round) {		
+		
+	public Vaza(int bid) {		
 		this.bid = bid;
-		this.victories = victories;
-		this.round = round;
 	}
 
 	public int getBid() {
@@ -24,13 +21,9 @@ public class Vaza {
 		this.victories = victories;
 	}
 
-	public int getRound() {
-		return round;
-	}
-
 	@Override
 	public String toString() {
-		return "Vaza: bid=" + bid + ", victories=" + victories + ", round=" + round;
+		return "Vaza: bid: " + bid + ", victories: " + victories;
 	}
 
 	

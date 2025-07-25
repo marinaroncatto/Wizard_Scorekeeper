@@ -23,7 +23,7 @@ public class Vaza {
 
 	@Override
 	public String toString() {
-		return "Vaza: bid: " + bid + ", victories: " + victories;
+		return "Vaza: bid: " + bid;
 	}
 
 	

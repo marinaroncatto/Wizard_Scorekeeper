@@ -9,12 +9,14 @@ public class GameMatch {
 	
 	private int round;
 	private int endGame;
+	private int howManyPlayers;
 	
 	private List<Player> players = new ArrayList<>();
 		
-	public GameMatch(int HowManyPlayers) {		
+	public GameMatch(int howManyPlayers) {		
 		this.round = 1;
-		this.endGame = calculateEndGame(HowManyPlayers);		
+		this.howManyPlayers = howManyPlayers;
+		this.endGame = calculateEndGame(howManyPlayers);		
 	}
 	
 	public int getRound() {
@@ -35,7 +37,15 @@ public class GameMatch {
 	public void setPlayer(Player player) {
 		this.players.add(player);
 	}
-	
+		
+	public int getHowManyPlayers() {
+		return howManyPlayers;
+	}
+
+	public void setHowManyPlayers(int howManyPlayers) {
+		this.howManyPlayers = howManyPlayers;
+	}
+
 	public boolean validateBid(int bid) {
 		return bid >= 0 && bid <= this.round;
 	}

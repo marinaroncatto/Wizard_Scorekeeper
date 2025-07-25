@@ -3,6 +3,8 @@
 
 Um projeto pessoal desenvolvido em com o objetivo de automatizar o processo de apostas e contagem de pontos do jogo de cartas **Wizard**. Este sistema visa facilitar o gerenciamento da partida, economizando tempo dos jogadores e reduzindo erros manuais.
 
+🌐 [Read in English](README.en.md)
+
 ## Objetivo do Projeto
 
 Automatizar:

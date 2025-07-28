@@ -14,10 +14,15 @@ public class Program {
 		
 		GameMatch gameMatch = UI.startGame(sc);
 		List<Player> players = UI.enterPlayers(gameMatch, sc);
-		UI.printRound(players, gameMatch);
-		System.out.println();
-		UI.printFinishVaza(players, gameMatch);
-		
+		while (gameMatch.getRound() <= gameMatch.getEndGame()){			
+			UI.printRound(players, gameMatch);
+			System.out.println();
+			UI.inputVictories(players, sc);
+			UI.printFinishVaza(players, gameMatch);
+			System.out.println();
+			UI.startNewRound(players, gameMatch, sc);
+		}
+				
 		sc.close();
 	}
 

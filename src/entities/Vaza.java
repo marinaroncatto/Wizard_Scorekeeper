@@ -19,7 +19,7 @@ public class Vaza {
 
 	public void setVictories(int victories) {
 		this.victories = victories;
-	}
+	}	
 
 	@Override
 	public String toString() {

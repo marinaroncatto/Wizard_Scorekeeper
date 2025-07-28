@@ -28,10 +28,17 @@ public class Player {
 		return vaza;
 	}
 
-	public void upgradeVaza(Vaza vaza) {
+	public void setNewVaza(Vaza vaza) {
 		this.vaza = vaza;
 	}
-
+	
+	public void calculatePoints() {
+		if(vaza.getBid() == vaza.getVictories()) 
+			this.points += 20 + 10 * vaza.getVictories();
+		else 
+			this.points += -10 * Math.abs(vaza.getBid() - vaza.getVictories());			
+	}
+	
 	@Override
 	public String toString() {
 		return name + " - points: " + points + " | " + vaza;

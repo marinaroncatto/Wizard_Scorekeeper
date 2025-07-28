@@ -46,8 +46,24 @@ public abstract class UI {
 		return gameMatch.getPlayers();
 	}
 	
+	public static void startNewRound(List<Player> players, GameMatch gameMatch, Scanner sc) {		
+		
+		for (int i = 0; i < players.size(); i++) {
+			System.out.print(players.get(i).getName()+ "'s bid: ");
+			int bid = sc.nextInt();
+			while (!gameMatch.validateBid(bid)) {
+				System.out.println("Invalid value! Bid must be possible.");
+				System.out.print("Bid: ");
+				bid = sc.nextInt();
+			}		
+			players.get(i).setNewVaza(new Vaza(bid));
+			System.out.println();			
+		}		
+	}
+		
+	
 	public static void printRound(List<Player> players, GameMatch gameMatch) {
-		System.out.println("Jogadores: ");
+		System.out.println("Players: ");
 		for(Player pl : players) {
 			System.out.println(pl);
 		}
@@ -56,13 +72,22 @@ public abstract class UI {
 		System.out.println("Round: " + gameMatch.getRound());
 	}
 	
+	public static void inputVictories(List<Player> players, Scanner sc) {	
+		for(int i = 0; i < players.size(); i++) {
+			System.out.print("Enter "+players.get(i).getName()+"'s victories: ");
+			players.get(i).getVaza().setVictories(sc.nextInt());
+			System.out.println();
+		}
+	}
+	
 	public static void printFinishVaza(List<Player> players, GameMatch gameMatch) {
-		System.out.println("Jogadores: ");
+		System.out.println(gameMatch.getRound()+" result: ");
 		for(Player pl : players) {
+			pl.calculatePoints();
 			System.out.println(pl + " | victories: " + pl.getVaza().getVictories());
 		}
 		
-		System.out.println("Número de rodadas: " + gameMatch.getEndGame());		
-		System.out.println("Round: " + gameMatch.getRound());
+		System.out.println("Número de rodadas: " + gameMatch.getEndGame());				
+		gameMatch.increaseRound();
 	}
 }

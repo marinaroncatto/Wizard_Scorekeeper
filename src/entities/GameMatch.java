@@ -12,6 +12,7 @@ public class GameMatch {
 	private int howManyPlayers;
 	
 	private List<Player> players = new ArrayList<>();
+	private List<Player> ranking = new ArrayList<>();
 		
 	public GameMatch(int howManyPlayers) {		
 		this.round = 1;
@@ -45,6 +46,14 @@ public class GameMatch {
 	public void setHowManyPlayers(int howManyPlayers) {
 		this.howManyPlayers = howManyPlayers;
 	}
+	
+	public List<Player> getRanking() {
+		return ranking;
+	}
+
+	public void setRanking(List<Player> ranking) {
+		this.ranking = ranking;
+	}
 
 	public boolean validateBid(int bid) {
 		return bid >= 0 && bid <= this.round;
@@ -60,6 +69,17 @@ public class GameMatch {
 		default -> throw new WizardException("The game must have between 3 and 6 players.");
 		}
 		return endGame;
+	}
+
+	public void orderRanking() {
+		this.ranking.sort((a, b) -> b.getPoints().compareTo(a.getPoints()));
+	}
+	
+	public void printRanking() {
+		System.out.println("=== Ranking: ===");
+		for(Player p : ranking) {
+			System.out.println(p.getName() + " - Points: " + p.getPoints());
+		}
 	}
 	
 	

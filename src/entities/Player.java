@@ -3,12 +3,13 @@ package entities;
 public class Player {
 	
 	private String name;
-	private int points;
+	private Integer points;
 	
 	private Vaza vaza;
 
 	public Player(String name, Vaza vaza) {
-		this.name = name;		
+		this.name = name;
+		this.points = 0;
 		this.vaza = vaza;
 	}
 
@@ -16,11 +17,11 @@ public class Player {
 		return name;
 	}
 
-	public int getPoints() {
+	public Integer getPoints() {
 		return points;
 	}
 
-	public void setPoints(int points) {
+	public void setPoints(Integer points) {
 		this.points = points;
 	}
 
@@ -33,10 +34,8 @@ public class Player {
 	}
 	
 	public void calculatePoints() {
-		if(vaza.getBid() == vaza.getVictories()) 
-			this.points += 20 + 10 * vaza.getVictories();
-		else 
-			this.points += -10 * Math.abs(vaza.getBid() - vaza.getVictories());			
+		this.vaza.calculatePoints();
+		this.points += this.vaza.getPoints();
 	}
 	
 	@Override

@@ -13,13 +13,16 @@ public class Program {
 		Scanner sc = new Scanner(System.in);
 		
 		GameMatch gameMatch = UI.startGame(sc);
+		System.out.println();
 		List<Player> players = UI.enterPlayers(gameMatch, sc);
-		while (gameMatch.getRound() <= gameMatch.getEndGame()){			
-			UI.printRound(players, gameMatch);
+		while (gameMatch.getRound() <= gameMatch.getEndGame()){		
 			System.out.println();
 			UI.inputVictories(players, sc);
 			UI.printFinishVaza(players, gameMatch);
 			System.out.println();
+			UI.ranking(gameMatch);
+			System.out.println();
+			gameMatch.increaseRound();
 			UI.startNewRound(players, gameMatch, sc);
 		}
 				

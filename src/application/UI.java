@@ -10,6 +10,8 @@ import entities.Vaza;
 public abstract class UI {
 
 	public static GameMatch startGame(Scanner sc) {
+		System.out.println("=== Welcome to Wizard Scorekeeper! ===");
+		System.out.println();
 		System.out.print("How many players? ");
 		int HowMany = sc.nextInt();
 
@@ -19,7 +21,7 @@ public abstract class UI {
 			HowMany = sc.nextInt();
 		}
 		GameMatch gameMatch = new GameMatch(HowMany);
-		sc.nextLine();
+		sc.nextLine();		
 		return gameMatch;
 	}
 
@@ -29,6 +31,8 @@ public abstract class UI {
 
 			System.out.print(i + "º player's name: ");
 			String name = sc.nextLine();
+			name = (name.length() < 3) ? nameTreatment(name) : name.substring(0, 3);			
+			name = name.substring(0,1).toUpperCase().concat(name.substring(1).toLowerCase());
 
 			System.out.print("Bid: ");
 			int bid = sc.nextInt();
@@ -43,7 +47,25 @@ public abstract class UI {
 			gameMatch.setPlayer(p);
 			System.out.println();
 		}
+		printRound(gameMatch.getPlayers(), gameMatch);
 		return gameMatch.getPlayers();
+	}
+	
+	private static String nameTreatment(String name) {
+		String newName = "";
+		while(newName.length() < 3) {					
+			if(!name.isEmpty() && newName.isEmpty()) {
+				if(name.length() == 1) 
+					newName +=  name.substring(0, 1);
+				else {
+					for(int i = 1; i <= name.length(); i++) 														
+						newName +=  name.substring(i -1 , i);						
+				}	
+			}			
+			newName +="_";
+		}
+		
+		return newName;
 	}
 	
 	public static void startNewRound(List<Player> players, GameMatch gameMatch, Scanner sc) {		
@@ -56,18 +78,16 @@ public abstract class UI {
 				System.out.print("Bid: ");
 				bid = sc.nextInt();
 			}		
-			players.get(i).setNewVaza(new Vaza(bid));
-			System.out.println();			
+			players.get(i).setNewVaza(new Vaza(bid));						
 		}		
 	}
 		
-	
-	public static void printRound(List<Player> players, GameMatch gameMatch) {
-		System.out.println("Players: ");
+	private static void printRound(List<Player> players, GameMatch gameMatch) {
+		System.out.println("=== Players: ===");
 		for(Player pl : players) {
 			System.out.println(pl);
 		}
-		
+		System.out.println();
 		System.out.println("Número de rodadas: " + gameMatch.getEndGame());		
 		System.out.println("Round: " + gameMatch.getRound());
 	}
@@ -81,13 +101,20 @@ public abstract class UI {
 	}
 	
 	public static void printFinishVaza(List<Player> players, GameMatch gameMatch) {
-		System.out.println(gameMatch.getRound()+" result: ");
+
+		System.out.println("=== "+ gameMatch.getRound()+"º round result: ===");
 		for(Player pl : players) {
 			pl.calculatePoints();
-			System.out.println(pl + " | victories: " + pl.getVaza().getVictories());
+			System.out.println(pl.getName() + " | victories: " + pl.getVaza().getVictories() + " | bid: " + pl.getVaza().getBid() + " - points: "+ pl.getVaza().getPoints());
 		}
-		
-		System.out.println("Número de rodadas: " + gameMatch.getEndGame());				
-		gameMatch.increaseRound();
+									
+	}
+
+	public static void ranking (GameMatch gameMatch) {
+		if(gameMatch.getRound() == 1) 
+			gameMatch.setRanking (gameMatch.getPlayers());
+		gameMatch.orderRanking ();
+		gameMatch.printRanking ();
 	}
 }
+

@@ -25,7 +25,7 @@ public abstract class UI {
 		return gameMatch;
 	}
 
-	public static List<Player> enterPlayers(GameMatch gameMatch, Scanner sc) {
+	public static void enterPlayers(GameMatch gameMatch, Scanner sc) {
 		int n = gameMatch.getHowManyPlayers();
 		for (int i = 1; i <= n; i++) {
 
@@ -47,8 +47,7 @@ public abstract class UI {
 			gameMatch.setPlayer(p);
 			System.out.println();
 		}
-		printRound(gameMatch.getPlayers(), gameMatch);
-		return gameMatch.getPlayers();
+		printRound(gameMatch);		
 	}
 	
 	private static String nameTreatment(String name) {
@@ -68,23 +67,25 @@ public abstract class UI {
 		return newName;
 	}
 	
-	public static void startNewRound(List<Player> players, GameMatch gameMatch, Scanner sc) {		
+	public static void startNewRound(GameMatch gameMatch, Scanner sc) {	
 		
-		for (int i = 0; i < players.size(); i++) {
-			System.out.print(players.get(i).getName()+ "'s bid: ");
+		gameMatch.bidRotation();
+		
+		for (int i = 0; i < gameMatch.getPlayers().size(); i++) {
+			System.out.print(gameMatch.getPlayers().get(i).getName()+ "'s bid: ");
 			int bid = sc.nextInt();
 			while (!gameMatch.validateBid(bid)) {
 				System.out.println("Invalid value! Bid must be possible.");
 				System.out.print("Bid: ");
 				bid = sc.nextInt();
 			}		
-			players.get(i).setNewVaza(new Vaza(bid));						
+			gameMatch.getPlayers().get(i).setNewVaza(new Vaza(bid));						
 		}		
 	}
 		
-	private static void printRound(List<Player> players, GameMatch gameMatch) {
+	private static void printRound(GameMatch gameMatch) {
 		System.out.println("=== Players: ===");
-		for(Player pl : players) {
+		for(Player pl : gameMatch.getPlayers()) {
 			System.out.println(pl);
 		}
 		System.out.println();
@@ -100,21 +101,31 @@ public abstract class UI {
 		}
 	}
 	
-	public static void printFinishVaza(List<Player> players, GameMatch gameMatch) {
+	public static void printFinishVaza(GameMatch gameMatch) {
 
 		System.out.println("=== "+ gameMatch.getRound()+"º round result: ===");
-		for(Player pl : players) {
+		for(Player pl : gameMatch.getPlayers()) {
 			pl.calculatePoints();
 			System.out.println(pl.getName() + " | victories: " + pl.getVaza().getVictories() + " | bid: " + pl.getVaza().getBid() + " - points: "+ pl.getVaza().getPoints());
 		}
 									
 	}
 
-	public static void ranking (GameMatch gameMatch) {
-		if(gameMatch.getRound() == 1) 
-			gameMatch.setRanking (gameMatch.getPlayers());
+	public static void showRanking (GameMatch gameMatch) {		
 		gameMatch.orderRanking ();
 		gameMatch.printRanking ();
 	}
+
+	public static void whoWins(GameMatch gameMatch) {
+		gameMatch.setWinner();
+		if(gameMatch.getWinner().size() > 1) 
+			System.out.println("** === TIE === **");
+		else
+			System.out.println("** === THE WINNER IS: === **");
+		for(Player pl : gameMatch.getWinner()) 
+			System.out.println(pl.getName() + " - points: " + pl.getPoints());
+			
+	}
+	
 }
 

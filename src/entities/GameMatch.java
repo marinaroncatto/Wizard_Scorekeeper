@@ -6,27 +6,29 @@ import java.util.List;
 import entities.excepitions.WizardException;
 
 public class GameMatch {
-	
+
 	private int round;
 	private int endGame;
 	private int howManyPlayers;
-	
+
 	private List<Player> players = new ArrayList<>();
 	private List<Player> ranking = new ArrayList<>();
-		
-	public GameMatch(int howManyPlayers) {		
+	private List<Player> winner = new ArrayList<>();
+
+	public GameMatch(int howManyPlayers) {
 		this.round = 1;
 		this.howManyPlayers = howManyPlayers;
-		this.endGame = calculateEndGame(howManyPlayers);		
+		this.endGame = calculateEndGame(howManyPlayers);
 	}
-	
+
 	public int getRound() {
 		return round;
 	}
 
 	public void increaseRound() {
-		this.round ++;
+		this.round++;
 	}
+
 	public int getEndGame() {
 		return endGame;
 	}
@@ -34,11 +36,12 @@ public class GameMatch {
 	public List<Player> getPlayers() {
 		return players;
 	}
-	
+
 	public void setPlayer(Player player) {
 		this.players.add(player);
+		this.ranking.add(player);
 	}
-		
+
 	public int getHowManyPlayers() {
 		return howManyPlayers;
 	}
@@ -46,13 +49,25 @@ public class GameMatch {
 	public void setHowManyPlayers(int howManyPlayers) {
 		this.howManyPlayers = howManyPlayers;
 	}
-	
+
 	public List<Player> getRanking() {
 		return ranking;
 	}
-
-	public void setRanking(List<Player> ranking) {
-		this.ranking = ranking;
+	
+	public List<Player> getWinner(){
+		return this.winner;
+	}
+	
+	public void setWinner() {
+		int highestPoints = 0;
+		for(Player pl : this.ranking) {
+			if(pl.getPoints() >= highestPoints) 
+				highestPoints = pl.getPoints();
+		}
+		for(Player pl : this.ranking) {
+			if(pl.getPoints() == highestPoints) 
+				this.winner.add(pl);
+			}	
 	}
 
 	public boolean validateBid(int bid) {
@@ -61,7 +76,7 @@ public class GameMatch {
 
 	private int calculateEndGame(int howManyPlayers) {
 		int endGame = 0;
-		switch(howManyPlayers) {
+		switch (howManyPlayers) {
 		case 3 -> endGame = 20;
 		case 4 -> endGame = 15;
 		case 5 -> endGame = 12;
@@ -74,13 +89,18 @@ public class GameMatch {
 	public void orderRanking() {
 		this.ranking.sort((a, b) -> b.getPoints().compareTo(a.getPoints()));
 	}
-	
+
 	public void printRanking() {
 		System.out.println("=== Ranking: ===");
-		for(Player p : ranking) {
+		for (Player p : ranking) {
 			System.out.println(p.getName() + " - Points: " + p.getPoints());
 		}
 	}
-	
-	
+
+	public void bidRotation() {
+		Player p1 = this.players.get(0);
+		this.players.remove(0);
+		this.players.add(p1);
+	}
+
 }

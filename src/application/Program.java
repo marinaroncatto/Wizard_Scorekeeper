@@ -1,10 +1,8 @@
 package application;
 
-import java.util.List;
 import java.util.Scanner;
 
 import entities.GameMatch;
-import entities.Player;
 
 
 public class Program {
@@ -14,18 +12,19 @@ public class Program {
 		
 		GameMatch gameMatch = UI.startGame(sc);
 		System.out.println();
-		List<Player> players = UI.enterPlayers(gameMatch, sc);
+		UI.enterPlayers(gameMatch, sc);
 		while (gameMatch.getRound() <= gameMatch.getEndGame()){		
 			System.out.println();
-			UI.inputVictories(players, sc);
-			UI.printFinishVaza(players, gameMatch);
+			UI.inputVictories(gameMatch.getPlayers(), sc);
+			UI.printFinishVaza(gameMatch);
 			System.out.println();
-			UI.ranking(gameMatch);
+			UI.showRanking(gameMatch);
 			System.out.println();
 			gameMatch.increaseRound();
-			UI.startNewRound(players, gameMatch, sc);
+			UI.startNewRound(gameMatch, sc);
 		}
-				
+		System.out.println();
+		UI.whoWins(gameMatch);		
 		sc.close();
 	}
 

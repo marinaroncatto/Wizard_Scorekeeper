@@ -34,16 +34,7 @@ public abstract class UI {
 			name = (name.length() < 3) ? nameTreatment(name) : name.substring(0, 3);			
 			name = name.substring(0,1).toUpperCase().concat(name.substring(1).toLowerCase());
 
-			System.out.print("Bid: ");
-			int bid = sc.nextInt();
-			while (!gameMatch.validateBid(bid)) {
-				System.out.println("Invalid value! Bid must be possible.");
-				System.out.print("Bid: ");
-				bid = sc.nextInt();
-			}
-
-			sc.nextLine();
-			Player p = new Player(name, new Vaza(bid));
+			Player p = new Player(name);
 			gameMatch.setPlayer(p);
 			System.out.println();
 		}
@@ -67,10 +58,7 @@ public abstract class UI {
 		return newName;
 	}
 	
-	public static void startNewRound(GameMatch gameMatch, Scanner sc) {	
-		
-		gameMatch.bidRotation();
-		
+	public static void startNewRound(GameMatch gameMatch, Scanner sc) {							
 		for (int i = 0; i < gameMatch.getPlayers().size(); i++) {
 			System.out.print(gameMatch.getPlayers().get(i).getName()+ "'s bid: ");
 			int bid = sc.nextInt();

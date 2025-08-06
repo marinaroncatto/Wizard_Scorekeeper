@@ -6,11 +6,10 @@ public class Player {
 	private Integer points;
 	
 	private Vaza vaza;
-
-	public Player(String name, Vaza vaza) {
+	
+	public Player(String name) {
 		this.name = name;
 		this.points = 0;
-		this.vaza = vaza;
 	}
 
 	public String getName() {

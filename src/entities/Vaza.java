@@ -31,15 +31,7 @@ public class Vaza {
 			this.points += 20 + 10 * this.victories;
 		else 
 			this.points += -10 * Math.abs(this.bid - this.victories);			
-	}
-	
-	@Override
-	public String toString() {
-		return "Vaza: bid: " + bid;
-	}
-
-	
-	
+	}			
 	
 	
 }

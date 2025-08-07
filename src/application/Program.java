@@ -9,22 +9,23 @@ public class Program {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		
+		System.out.println();
 		GameMatch gameMatch = UI.startGame(sc);
 		System.out.println();
 		UI.enterPlayers(gameMatch, sc);
-		System.out.println();
 		while (gameMatch.getRound() <= gameMatch.getEndGame()){	
+			UI.clearScreen();
 			UI.startNewRound(gameMatch, sc);
-			System.out.println();
+			UI.pressToContinue(sc);
 			UI.inputVictories(gameMatch.getPlayers(), sc);
-			UI.printFinishVaza(gameMatch);
+			UI.printFinishVaza(gameMatch);	
 			System.out.println();
-			UI.showRanking(gameMatch);
-			System.out.println();
+			UI.showRanking(gameMatch);			
 			gameMatch.increaseRound();	
 			gameMatch.bidRotation();
+			UI.pressToContinue(sc);
 		}
+		UI.clearScreen();
 		System.out.println();
 		UI.whoWins(gameMatch);		
 		sc.close();

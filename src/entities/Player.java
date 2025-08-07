@@ -36,18 +36,5 @@ public class Player {
 		this.vaza.calculatePoints();
 		this.points += this.vaza.getPoints();
 	}
-	
-	@Override
-	public String toString() {
-		return name + " - points: " + points + " | " + vaza;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+			
 }

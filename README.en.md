@@ -1,4 +1,4 @@
-# Wizard Scorekeeper (in progress)
+# Wizard Scorekeeper
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)  
 
 A personal project developed with the goal of automating the betting and scoring process of the **Wizard** card game. This system aims to simplify match management, saving players time and reducing manual errors.

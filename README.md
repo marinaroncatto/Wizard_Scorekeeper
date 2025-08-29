@@ -1,4 +1,4 @@
-# Wizard Scorekeeper (Em construção)
+# Wizard Scorekeeper
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) 
 
 Um projeto pessoal desenvolvido em com o objetivo de automatizar o processo de apostas e contagem de pontos do jogo de cartas **Wizard**. Este sistema visa facilitar o gerenciamento da partida, economizando tempo dos jogadores e reduzindo erros manuais.

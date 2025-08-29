@@ -71,8 +71,7 @@ public abstract class UI {
 	
 	public static void pressToContinue(Scanner sc) {
 		System.out.println();		
-		System.out.println(ANSI_WHITE_BACKGROUND + ANSI_BLACK + " Press enter to continue " + ANSI_RESET);
-		sc.nextLine();	
+		System.out.println(ANSI_WHITE_BACKGROUND + ANSI_BLACK + " Press enter to continue " + ANSI_RESET);		
 		sc.nextLine();	
 	}
 	
@@ -88,10 +87,18 @@ public abstract class UI {
 			while (!gameMatch.validateBid(bid)) {
 				System.out.println("Invalid value! Bid must be possible.");
 				System.out.print("Bid: ");
-				bid = sc.nextInt();
+				bid = sc.nextInt();				
 			}
 			gameMatch.getPlayers().get(i).setNewVaza(new Vaza(bid));
 			System.out.println();			
+		}
+		sc.nextLine();
+		System.out.print("Type 'R' to rewrite bids or ENTER to go ahead: ");
+		String option = sc.nextLine().toUpperCase();
+		char op = (option.trim() != "") ? option.charAt(0) : 'N';
+		if(op == 'R'){
+			clearScreen();
+			startNewRound(gameMatch, sc);
 		}
 	}
 
@@ -106,6 +113,14 @@ public abstract class UI {
 			System.out.print("Enter " + players.get(i).getName() + "'s victories: ");
 			players.get(i).getVaza().setVictories(sc.nextInt());
 			System.out.println();
+		}
+		sc.nextLine();
+		System.out.print("Type 'R' to rewrite victories or ENTER to go ahead: ");
+		String option = sc.nextLine().toUpperCase();
+		char op = (option.trim() != "") ? option.charAt(0) : 'N';
+		if(op == 'R'){
+			clearScreen();
+			inputVictories(players, sc);
 		}
 	}
 
